@@ -7,7 +7,8 @@ var bodyParser = require("body-parser"),
 
 // APP CONFIGURATION
 mongoose.connect("mongodb://localhost:27017/golf_stats_app", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useCreateIndex: true
 });
 
 // allows for view files to drop the .ejs extention when rendering
@@ -20,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 // CONFIGURATION OF MONGOOSE AND THE MODEL
-var statsSchema = new mongoose.Schema(
+var golfSchema = new mongoose.Schema(
   {
     _id: Number,
     created: { type: Date, default: Date.now },
@@ -31,15 +32,16 @@ var statsSchema = new mongoose.Schema(
   },
   { _id: false }
 );
+golfSchema.plugin(AutoIncrement);
 
-var Stats = mongoose.model("Stats", statsSchema);
+var Golf = mongoose.model("Golf", golfSchema);
+// Golf.counterReset("_id", function(err) {});
 
-statsSchema.plugin(AutoIncrement);
+// ALL THE ROUTES
 
-// score
-// fairways
-// greens
-// putts
+app.get("/golfstats", function(req, res) {
+  res.render("index");
+});
 
 var port = 1236;
 app.listen(port, () => {
