@@ -1,1 +1,12 @@
+<% include ./partials/header %>
+
 <h1>This is the Golf Stats Page</h1>
+
+<% stats.forEach(function(stat) { %>
+<div>
+  <h1>Round: <%= stat._id %></h1>
+  <h2>Score: <%= stat.score %></h2>
+  <h3>Round played: <%= moment(stat.created).format('L') %></h3>
+  <h3>Round Stats</h3>
+</div>
+<% }) %> <% include ./partials/footer %>

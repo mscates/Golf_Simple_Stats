@@ -2,6 +2,7 @@ var bodyParser = require("body-parser"),
   methodOverride = require("method-override"),
   mongoose = require("mongoose"),
   express = require("express"),
+  moment = require("moment"),
   AutoIncrement = require("mongoose-sequence")(mongoose),
   app = express();
 
@@ -35,12 +36,23 @@ var golfSchema = new mongoose.Schema(
 golfSchema.plugin(AutoIncrement);
 
 var Golf = mongoose.model("Golf", golfSchema);
-// Golf.counterReset("_id", function(err) {});
+
+Golf.counterReset("_id", function(err) {});
 
 // ALL THE ROUTES
 
+app.get("/", function(req, res) {
+  res.redirect("/golfstats");
+});
+
 app.get("/golfstats", function(req, res) {
-  res.render("index");
+  Golf.find({}, function(err, stats) {
+    if (err) {
+      console.log("Error");
+    } else {
+      res.render("index", { stats: stats, moment: moment });
+    }
+  });
 });
 
 var port = 1236;
