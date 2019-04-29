@@ -1,12 +1,23 @@
 <% include ./partials/header %>
 
-<h1>This is the Golf Stats Page</h1>
-
-<% stats.forEach(function(stat) { %>
-<div>
-  <h1>Round: <%= stat._id %></h1>
-  <h2>Score: <%= stat.score %></h2>
-  <h3>Round played: <%= moment(stat.created).format('L') %></h3>
-  <h3>Round Stats</h3>
+<div class="container">
+  <h1 class="text-center mb-4">Golf Rounds</h1>
+  <div class="row">
+    <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+      <% stats.forEach(function(stat) { %>
+      <div>
+        <div class="card-header">Round: <%= stat._id %></div>
+        <div class="card-body">
+          <h5 class="card-title">Score: <%= stat.score %></h5>
+          <p class="card-text">
+            Completed: <%= moment(stat.created).format('L') %>
+          </p>
+          <p class="card-text">Round Stats</p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
 </div>
-<% }) %> <% include ./partials/footer %>
+
+<% include ./partials/footer %>
