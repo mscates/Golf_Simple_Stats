@@ -1,0 +1,40 @@
+<% include ./partials/header %>
+
+<div class="row justify-content-center mt-4">
+  <div class="col-md-3">
+    <div class="card card-outline-secondary">
+      <div class="card-header">
+        <div class="mb-0">Round Stats</div>
+      </div>
+      <div class="card-body">
+        <form action="/golfstats" method="POST">
+          <div class="form-group">
+            <label for="score">Score</label>
+            <input type="text" name="stats[score]" class="form-control" id="score" placeholder="0" />
+          </div>
+          <div class="form-group">
+            <label for="fairways">Fairways</label>
+            <input type="text" name="stats[fairways]" class="form-control" id="fairways" placeholder="0" />
+          </div>
+          <div class="form-group">
+            <label for="greens">Greens</label>
+            <input type="text" name="stats[greens]" class="form-control" id="greens" placeholder="0" />
+          </div>
+          <div class="form-group">
+            <label for="putts">Putts</label>
+            <input type="text" name="stats[putts]" class="form-control" id="putts" placeholder="0" />
+          </div>
+          <input type="submit">
+        </form>
+      </div>
+    </div>
+  </div>
+  <form >
+
+
+
+    </div>
+  </form>
+</div>
+
+<% include ./partials/footer %>

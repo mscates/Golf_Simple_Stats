@@ -45,12 +45,40 @@ app.get("/", function(req, res) {
   res.redirect("/golfstats");
 });
 
+//INDEX ROUTE
 app.get("/golfstats", function(req, res) {
   Golf.find({}, function(err, stats) {
     if (err) {
       console.log("Error");
     } else {
       res.render("index", { stats: stats, moment: moment });
+    }
+  });
+});
+
+// NEW ROUTE
+app.get("/golfstats/new", function(req, res) {
+  res.render("new");
+});
+
+// CREATE ROUTE
+app.post("/golfstats", function(req, res) {
+  Golf.create(req.body.stats, function(err, newGolf) {
+    if (err) {
+      res.status(400).send("unable to save to database");
+    } else {
+      res.redirect("/golfstats");
+    }
+  });
+});
+
+// SHOW ROUTE
+app.get("/golfstats/:id", function(req, res) {
+  Golf.findById(req.params.id, function(err, foundRound) {
+    if (err) {
+      res.redirect("/golfstats");
+    } else {
+      res.render("show", { round: foundRound });
     }
   });
 });
