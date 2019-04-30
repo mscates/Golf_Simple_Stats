@@ -1,3 +1,7 @@
 .card {
   display: inline-block;
 }
+
+.button-align form {
+  display: inline;
+}

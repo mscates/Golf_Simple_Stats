@@ -83,6 +83,42 @@ app.get("/golfstats/:id", function(req, res) {
   });
 });
 
+// EDIT ROUTE
+app.get("/golfstats/:id/edit", function(req, res) {
+  Golf.findById(req.params.id, function(err, foundRound) {
+    if (err) {
+      res.redirect("/golfstats");
+    } else {
+      res.render("edit", { stat: foundRound });
+    }
+  });
+});
+
+// UPDATE ROUTE
+app.put("/golfstats/:id", function(req, res) {
+  Golf.findByIdAndUpdate(req.params.id, req.body.stats, function(
+    err,
+    updatedRound
+  ) {
+    if (err) {
+      res.redirect("/golfstats");
+    } else {
+      res.redirect("/golfstats/" + req.params.id);
+    }
+  });
+});
+
+// DELETE ROUTE
+app.delete("/golfstats/:id", function(req, res) {
+  Golf.findByIdAndRemove(req.params.id, function(err) {
+    if (err) {
+      res.redirect("/golfstats");
+    } else {
+      res.redirect("/golfstats");
+    }
+  });
+});
+
 var port = 1236;
 app.listen(port, () => {
   console.log("Server Started!");
