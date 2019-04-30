@@ -1,0 +1,36 @@
+<% include ./partials/header %>
+<div class="container">
+  <h1 class="text-center mb-4">Round: <%= stat._id %></h1>
+  <div class="col d-flex justify-content-center">
+    <div class="card w-75 text-white bg-info mb-3">
+      <div class="card-header">Round:
+        <%= stat._id %>
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h4 class="card-title">Score:
+            <%= stat.score %>
+          </h4>
+          <p class="card-text">
+            Completed:
+            <%= moment(stat.created).format('L') %>
+          </p>
+        </div>
+        <div class="d-flex justify-content-around">
+          <h5 class="card-text">
+            Fairways: <%= stat.fairways %>
+          </h5>
+          <h5 class="card-text">
+            Greens: <%= stat.greens %>
+          </h5>
+          <h5 class="card-text">
+            Putts: <%= stat.putts %>
+          </h5>
+        </div>
+        <a href="/golfstats/<%= stat._id %>">Round Stats</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include ./partials/footer %>

@@ -37,7 +37,7 @@ golfSchema.plugin(AutoIncrement);
 
 var Golf = mongoose.model("Golf", golfSchema);
 
-Golf.counterReset("_id", function(err) {});
+// Golf.counterReset("_id", function(err) {});
 
 // ALL THE ROUTES
 
@@ -78,7 +78,7 @@ app.get("/golfstats/:id", function(req, res) {
     if (err) {
       res.redirect("/golfstats");
     } else {
-      res.render("show", { round: foundRound });
+      res.render("show", { stat: foundRound, moment: moment });
     }
   });
 });
