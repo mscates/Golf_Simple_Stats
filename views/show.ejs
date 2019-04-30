@@ -11,7 +11,7 @@
             Completed: <%= moment(stat.created).format('L') %>
           </p>
         </div>
-        <div class="d-flex justify-content-around">
+        <div class="d-flex justify-content-around mb-4">
           <h5 class="card-text">
             Fairways: <%= stat.fairways %>
           </h5>
@@ -22,18 +22,18 @@
             Putts: <%= stat.putts %>
           </h5>
         </div>
-        <div class="button-align">
+        <div class="d-flex flex-row">
           <a
-            class="btn btn-warning"
-            href="/golfstats/
-                  <%= stat._id %>/edit"
+            id="edit"
+            class="btn btn-dark mr-3"
+            href="/golfstats/<%= stat._id %>/edit"
             >Edit</a
           >
           <form
             action="/golfstats/<%= stat._id %>?_method=Delete"
             method="POST"
           >
-            <button class="btn btn-light">Delete</button>
+            <button class="btn btn-dark">Delete</button>
           </form>
         </div>
       </div>

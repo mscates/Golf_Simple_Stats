@@ -12,7 +12,9 @@
           <p class="card-text">
             Completed: <%= moment(stat.created).format('L') %>
           </p>
-          <a href="/golfstats/<%= stat._id %>">Round Stats</a>
+          <a class="btn btn-light" href="/golfstats/<%= stat._id %>"
+            >More Stats</a
+          >
         </div>
       </div>
     </div>

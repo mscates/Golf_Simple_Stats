@@ -2,6 +2,6 @@
   display: inline-block;
 }
 
-.button-align form {
-  display: inline;
+.delete {
+  color: red;
 }

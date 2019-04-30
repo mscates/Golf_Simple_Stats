@@ -119,7 +119,28 @@ app.delete("/golfstats/:id", function(req, res) {
   });
 });
 
+// DASHBOARD ROUTE
+app.get("/dashboard", function(req, res) {
+  Golf.find({}, function(err, stats) {
+    if (err) {
+      console.log("Error");
+    } else {
+      res.render("dashboard", { stats: stats });
+    }
+  });
+});
+
 var port = 1236;
 app.listen(port, () => {
   console.log("Server Started!");
+});
+
+app.get("/golfstats", function(req, res) {
+  Golf.find({}, function(err, stats) {
+    if (err) {
+      console.log("Error");
+    } else {
+      res.render("index", { stats: stats, moment: moment });
+    }
+  });
 });
