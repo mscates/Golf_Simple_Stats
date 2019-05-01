@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 // CONFIGURATION OF MONGOOSE AND THE MODEL
-var golfSchema = new mongoose.Schema(
+var roundSchema = new mongoose.Schema(
   {
     _id: Number,
     created: { type: Date, default: Date.now },
@@ -33,9 +33,9 @@ var golfSchema = new mongoose.Schema(
   },
   { _id: false }
 );
-golfSchema.plugin(AutoIncrement);
+roundSchema.plugin(AutoIncrement);
 
-var Golf = mongoose.model("Golf", golfSchema);
+var Round = mongoose.model("Golf", roundSchema);
 
 // Golf.counterReset("_id", function(err) {});
 
@@ -47,7 +47,7 @@ app.get("/", function(req, res) {
 
 //INDEX ROUTE
 app.get("/golfstats", function(req, res) {
-  Golf.find({}, function(err, stats) {
+  Round.find({}, function(err, stats) {
     if (err) {
       console.log("Error");
     } else {
@@ -63,7 +63,7 @@ app.get("/golfstats/new", function(req, res) {
 
 // CREATE ROUTE
 app.post("/golfstats", function(req, res) {
-  Golf.create(req.body.stats, function(err, newGolf) {
+  Round.create(req.body.stats, function(err, newRound) {
     if (err) {
       res.status(400).send("unable to save to database");
     } else {
@@ -74,7 +74,7 @@ app.post("/golfstats", function(req, res) {
 
 // SHOW ROUTE
 app.get("/golfstats/:id", function(req, res) {
-  Golf.findById(req.params.id, function(err, foundRound) {
+  Round.findById(req.params.id, function(err, foundRound) {
     if (err) {
       res.redirect("/golfstats");
     } else {
@@ -85,7 +85,7 @@ app.get("/golfstats/:id", function(req, res) {
 
 // EDIT ROUTE
 app.get("/golfstats/:id/edit", function(req, res) {
-  Golf.findById(req.params.id, function(err, foundRound) {
+  Round.findById(req.params.id, function(err, foundRound) {
     if (err) {
       res.redirect("/golfstats");
     } else {
@@ -96,7 +96,7 @@ app.get("/golfstats/:id/edit", function(req, res) {
 
 // UPDATE ROUTE
 app.put("/golfstats/:id", function(req, res) {
-  Golf.findByIdAndUpdate(req.params.id, req.body.stats, function(
+  Round.findByIdAndUpdate(req.params.id, req.body.stats, function(
     err,
     updatedRound
   ) {
@@ -110,7 +110,7 @@ app.put("/golfstats/:id", function(req, res) {
 
 // DELETE ROUTE
 app.delete("/golfstats/:id", function(req, res) {
-  Golf.findByIdAndRemove(req.params.id, function(err) {
+  Round.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
       res.redirect("/golfstats");
     } else {
@@ -121,7 +121,7 @@ app.delete("/golfstats/:id", function(req, res) {
 
 // DASHBOARD ROUTE
 app.get("/dashboard", function(req, res) {
-  Golf.find({}, function(err, stats) {
+  Round.find({}, function(err, stats) {
     if (err) {
       console.log("Error");
     } else {
@@ -133,14 +133,4 @@ app.get("/dashboard", function(req, res) {
 var port = 1236;
 app.listen(port, () => {
   console.log("Server Started!");
-});
-
-app.get("/golfstats", function(req, res) {
-  Golf.find({}, function(err, stats) {
-    if (err) {
-      console.log("Error");
-    } else {
-      res.render("index", { stats: stats, moment: moment });
-    }
-  });
 });
