@@ -9,7 +9,13 @@ var roundSchema = new mongoose.Schema(
     score: Number,
     fairways: Number,
     greens: Number,
-    putts: Number
+    putts: Number,
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+      }
+    ]
   },
   { _id: false }
 );

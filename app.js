@@ -4,8 +4,10 @@ var bodyParser = require("body-parser"),
   express = require("express"),
   moment = require("moment"),
   app = express(),
-  Round = require("./models/round");
+  Round = require("./models/round"),
+  seedDB = require("./seeds");
 
+seedDB();
 // APP CONFIGURATION
 mongoose.connect("mongodb://localhost:27017/golf_stats_app", {
   useNewUrlParser: true,
@@ -56,13 +58,16 @@ app.post("/golfstats", function(req, res) {
 
 // SHOW ROUTE
 app.get("/golfstats/:id", function(req, res) {
-  Round.findById(req.params.id, function(err, foundRound) {
-    if (err) {
-      res.redirect("/golfstats");
-    } else {
-      res.render("show", { stat: foundRound, moment: moment });
-    }
-  });
+  Round.findById(req.params.id)
+    .populate("comments")
+    .exec(function(err, foundRound) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(foundRound);
+        res.render("show", { stat: foundRound, moment: moment });
+      }
+    });
 });
 
 // EDIT ROUTE

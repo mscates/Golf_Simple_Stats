@@ -39,6 +39,16 @@
       </div>
     </div>
   </div>
+  <div class="col d-flex justify-content-center">
+    <div class="card w-75 text-white bg-info mb-3">
+      <div class="card-header">Comments %></div>
+      <div class="card-body">
+        <% stat.comments.forEach(function(comment) { %>
+        <p><strong><%= comment.author %></strong> - <%= comment.text %></p>
+        <% }) %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <% include ./partials/footer %>
