@@ -5,6 +5,7 @@ var bodyParser = require("body-parser"),
   moment = require("moment"),
   app = express(),
   Round = require("./models/round"),
+  Comment = require("./models/comment"),
   seedDB = require("./seeds");
 
 seedDB();
@@ -35,14 +36,14 @@ app.get("/golfstats", function(req, res) {
     if (err) {
       console.log("Error");
     } else {
-      res.render("index", { stats: stats, moment: moment });
+      res.render("rounds/index", { stats: stats, moment: moment });
     }
   });
 });
 
 // NEW ROUTE
 app.get("/golfstats/new", function(req, res) {
-  res.render("new");
+  res.render("rounds/new");
 });
 
 // CREATE ROUTE
@@ -65,7 +66,7 @@ app.get("/golfstats/:id", function(req, res) {
         console.log(err);
       } else {
         console.log(foundRound);
-        res.render("show", { stat: foundRound, moment: moment });
+        res.render("rounds/show", { stat: foundRound, moment: moment });
       }
     });
 });
@@ -76,7 +77,7 @@ app.get("/golfstats/:id/edit", function(req, res) {
     if (err) {
       res.redirect("/golfstats");
     } else {
-      res.render("edit", { stat: foundRound });
+      res.render("rounds/edit", { stat: foundRound });
     }
   });
 });
@@ -113,6 +114,37 @@ app.get("/dashboard", function(req, res) {
       console.log("Error");
     } else {
       res.render("dashboard", { stats: stats });
+    }
+  });
+});
+
+// COMMENTS ROUTES
+
+app.get("/golfstats/:id/comments/new", function(req, res) {
+  Round.findById(req.params.id, function(err, round) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("comments/new", { round: round });
+    }
+  });
+});
+
+app.post("/golfstats/:id/comments", function(req, res) {
+  Round.findById(req.params.id, function(err, round) {
+    if (err) {
+      console.log(err);
+      res.redirect("/golfstats");
+    } else {
+      Comment.create(req.body.comment, function(err, comment) {
+        if (err) {
+          console.log(err);
+        } else {
+          round.comments.push(comment);
+          round.save();
+          res.redirect("/golfstats/" + round._id);
+        }
+      });
     }
   });
 });

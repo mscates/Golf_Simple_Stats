@@ -1,4 +1,4 @@
-<% include ./partials/header %>
+<% include ../partials/header %>
 <div class="container">
   <h1 class="text-center mb-4">Round: <%= stat._id %></h1>
   <div class="col d-flex justify-content-center">
@@ -41,7 +41,15 @@
   </div>
   <div class="col d-flex justify-content-center">
     <div class="card w-75 text-white bg-info mb-3">
-      <div class="card-header">Comments %></div>
+      <div class="d-flex justify-content-between">
+        <div class="btn btn-primary">Comments %></div>
+        <a
+          class="btn btn-primary"
+          href="/golfstats/<%= stat._id %>/comments/new"
+          >Add Comment</a
+        >
+      </div>
+
       <div class="card-body">
         <% stat.comments.forEach(function(comment) { %>
         <p><strong><%= comment.author %></strong> - <%= comment.text %></p>
@@ -51,4 +59,4 @@
   </div>
 </div>
 
-<% include ./partials/footer %>
+<% include ../partials/footer %>

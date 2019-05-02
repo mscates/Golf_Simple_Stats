@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+
+<div class="row justify-content-center mt-4">
+  <div class="col-md-5">
+    <div class="card card-outline-secondary">
+      <div class="card-header">
+        <div class="mb-0">Add New Comment to <%= round._id %></div>
+      </div>
+      <div class="card-body">
+        <form action="/golfstats/<%= round._id %>/comments " method="POST">
+          <div class="form-group">
+            <input type="text" name="comment[text]" class="form-control" id="score" placeholder="text" />
+          </div>
+          <div class="form-group">
+            <input type="text" name="comment[author]" class="form-control" id="fairways" placeholder="author" />
+          </div>
+
+          <input type="submit">
+        </form>
+      </div>
+    </div>
+  </div>
+  <form>
+</div>
+</form>
+</div>
+
+<% include ../partials/footer %>
