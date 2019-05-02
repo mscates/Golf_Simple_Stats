@@ -3,8 +3,8 @@ var bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
   express = require("express"),
   moment = require("moment"),
-  AutoIncrement = require("mongoose-sequence")(mongoose),
-  app = express();
+  app = express(),
+  Round = require("./models/round");
 
 // APP CONFIGURATION
 mongoose.connect("mongodb://localhost:27017/golf_stats_app", {
@@ -20,24 +20,6 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 // setup method override for put requests
 app.use(methodOverride("_method"));
-
-// CONFIGURATION OF MONGOOSE AND THE MODEL
-var roundSchema = new mongoose.Schema(
-  {
-    _id: Number,
-    created: { type: Date, default: Date.now },
-    score: Number,
-    fairways: Number,
-    greens: Number,
-    putts: Number
-  },
-  { _id: false }
-);
-roundSchema.plugin(AutoIncrement);
-
-var Round = mongoose.model("Golf", roundSchema);
-
-// Golf.counterReset("_id", function(err) {});
 
 // ALL THE ROUTES
 
