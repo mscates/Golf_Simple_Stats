@@ -1,6 +1,10 @@
+<% include ../partials/header %>
+
 <h1>Dashboard</h1>
 
 <% var sumScores = 0, sumFairways = 0 %> <% stats.forEach(function(stat) { %> <%
 sumScores += stat.score %> <% sumFairways += stat.fairways %> <% }) %>
 <h2>Your average score is: <%= sumScores / stats.length %></h2>
 <h2>Average number of Fairways: <%= sumFairways / stats.length %></h2>
+
+<% include ../partials/footer %>

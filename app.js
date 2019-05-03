@@ -57,6 +57,17 @@ app.post("/golfstats", function(req, res) {
   });
 });
 
+// DASHBOARD ROUTE
+app.get("/golfstats/dashboard", function(req, res) {
+  Round.find({}, function(err, stats) {
+    if (err) {
+      console.log("Error");
+    } else {
+      res.render("rounds/dashboard", { stats: stats });
+    }
+  });
+});
+
 // SHOW ROUTE
 app.get("/golfstats/:id", function(req, res) {
   Round.findById(req.params.id)
@@ -103,17 +114,6 @@ app.delete("/golfstats/:id", function(req, res) {
       res.redirect("/golfstats");
     } else {
       res.redirect("/golfstats");
-    }
-  });
-});
-
-// DASHBOARD ROUTE
-app.get("/dashboard", function(req, res) {
-  Round.find({}, function(err, stats) {
-    if (err) {
-      console.log("Error");
-    } else {
-      res.render("dashboard", { stats: stats });
     }
   });
 });
