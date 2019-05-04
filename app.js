@@ -189,6 +189,21 @@ app.post("/register", function(req, res) {
   });
 });
 
+// show login form
+app.get("/login", function(req, res) {
+  res.render("login");
+});
+
+// handle login
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/golfstats",
+    failureRedirect: "/login"
+  }),
+  function(req, res) {}
+);
+
 var port = 1236;
 app.listen(port, () => {
   console.log("Server Started!");
