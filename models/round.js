@@ -21,6 +21,4 @@ var roundSchema = new mongoose.Schema(
 );
 roundSchema.plugin(AutoIncrement);
 
-// Round.counterReset("_id", function(err) {});
-
 module.exports = mongoose.model("Round", roundSchema);

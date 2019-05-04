@@ -4,9 +4,14 @@ var bodyParser = require("body-parser"),
   express = require("express"),
   moment = require("moment"),
   app = express(),
+  passport = require("passport"),
+  LocalStrategy = require("passport-local"),
   Round = require("./models/round"),
   Comment = require("./models/comment"),
+  User = require("./models/user"),
   seedDB = require("./seeds");
+
+// Round.counterReset("_id", function(err) {});
 
 seedDB();
 // APP CONFIGURATION

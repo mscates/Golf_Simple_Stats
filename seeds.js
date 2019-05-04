@@ -34,7 +34,7 @@ function seedDB() {
       if (err) {
         console.log(err);
       }
-      console.log("removed comments!");
+      console.log("removed rounds!");
       //add a few campgrounds
       data.forEach(function(seed) {
         Round.create(seed, function(err, round) {
@@ -54,7 +54,7 @@ function seedDB() {
                 } else {
                   round.comments.push(comment);
                   round.save();
-                  console.log("Created new comment");
+                  console.log("Created new round");
                 }
               }
             );
