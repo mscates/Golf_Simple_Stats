@@ -42,6 +42,11 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+// use currentUser in all routes
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 // ALL THE ROUTES
 
@@ -55,7 +60,10 @@ app.get("/golfstats", function(req, res) {
     if (err) {
       console.log("Error");
     } else {
-      res.render("rounds/index", { stats: stats, moment: moment });
+      res.render("rounds/index", {
+        stats: stats,
+        moment: moment
+      });
     }
   });
 });
