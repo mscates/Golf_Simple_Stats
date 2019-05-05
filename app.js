@@ -139,7 +139,7 @@ app.delete("/golfstats/:id", function(req, res) {
 
 // COMMENTS ROUTES
 
-app.get("/golfstats/:id/comments/new", function(req, res) {
+app.get("/golfstats/:id/comments/new", isLoggedIn, function(req, res) {
   Round.findById(req.params.id, function(err, round) {
     if (err) {
       console.log(err);
@@ -149,7 +149,7 @@ app.get("/golfstats/:id/comments/new", function(req, res) {
   });
 });
 
-app.post("/golfstats/:id/comments", function(req, res) {
+app.post("/golfstats/:id/comments", isLoggedIn, function(req, res) {
   Round.findById(req.params.id, function(err, round) {
     if (err) {
       console.log(err);
@@ -203,6 +203,19 @@ app.post(
   }),
   function(req, res) {}
 );
+
+// logout route
+app.get("/logout", function(req, res) {
+  req.logout();
+  res.redirect("/golfstats");
+});
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login");
+}
 
 var port = 1236;
 app.listen(port, () => {
