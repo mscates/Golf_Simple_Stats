@@ -25,6 +25,9 @@ router.post("/", isLoggedIn, function(req, res) {
         if (err) {
           console.log(err);
         } else {
+          comment.author.id = req.user._id;
+          comment.author.username = req.user.username;
+          comment.save();
           round.comments.push(comment);
           round.save();
           res.redirect("/golfstats/" + round._id);

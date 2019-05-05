@@ -14,7 +14,7 @@ var commentRoutes = require("./routes/comments"),
 
 // Round.counterReset("_id", function(err) {});
 
-seedDB();
+// seedDB();
 // APP CONFIGURATION
 mongoose.connect("mongodb://localhost:27017/golf_stats_app", {
   useNewUrlParser: true,
