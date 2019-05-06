@@ -10,6 +10,13 @@ var roundSchema = new mongoose.Schema(
     fairways: Number,
     greens: Number,
     putts: Number,
+    author: {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      username: String
+    },
     comments: [
       {
         type: mongoose.Schema.Types.ObjectId,

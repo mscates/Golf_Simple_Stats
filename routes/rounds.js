@@ -18,16 +18,32 @@ router.get("/", function(req, res) {
 });
 
 // NEW ROUTE
-router.get("/new", function(req, res) {
+router.get("/new", isLoggedIn, function(req, res) {
   res.render("rounds/new");
 });
 
 // CREATE ROUTE
-router.post("/", function(req, res) {
-  Round.create(req.body.stats, function(err, newRound) {
+router.post("/", isLoggedIn, function(req, res) {
+  var score = req.body.score;
+  var fairways = req.body.fairways;
+  var greens = req.body.greens;
+  var putts = req.body.putts;
+  var author = {
+    id: req.user._id,
+    username: req.user.username
+  };
+  var newRound = {
+    score: score,
+    fairways: fairways,
+    greens: greens,
+    putts: putts,
+    author: author
+  };
+  Round.create(newRound, function(err, newCreatedRound) {
     if (err) {
       res.status(400).send("unable to save to database");
     } else {
+      console.log(newCreatedRound);
       res.redirect("/golfstats");
     }
   });
@@ -59,7 +75,7 @@ router.get("/:id", function(req, res) {
 });
 
 // EDIT ROUTE
-router.get("/:id/edit", function(req, res) {
+router.get("/:id/edit", isLoggedIn, function(req, res) {
   Round.findById(req.params.id, function(err, foundRound) {
     if (err) {
       res.redirect("/golfstats");
@@ -84,7 +100,7 @@ router.put("/:id", function(req, res) {
 });
 
 // DELETE ROUTE
-router.delete("/:id", function(req, res) {
+router.delete("/:id", isLoggedIn, function(req, res) {
   Round.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
       res.redirect("/golfstats");
@@ -93,5 +109,12 @@ router.delete("/:id", function(req, res) {
     }
   });
 });
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login");
+}
 
 module.exports = router;
