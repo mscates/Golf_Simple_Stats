@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Round = require("../models/round");
 var moment = require("moment");
+var Comment = require("../models/comment");
 
 //INDEX ROUTE
 router.get("/", function(req, res) {
@@ -100,13 +101,20 @@ router.put("/:id", function(req, res) {
 });
 
 // DELETE ROUTE
-router.delete("/:id", isLoggedIn, function(req, res) {
-  Round.findByIdAndRemove(req.params.id, function(err) {
-    if (err) {
-      res.redirect("/golfstats");
-    } else {
-      res.redirect("/golfstats");
-    }
+router.delete("/:id", isLoggedIn, function(req, res, next) {
+  Round.findById(req.params.id, function(err, round) {
+    Comment.remove(
+      {
+        _id: {
+          $in: round.comments
+        }
+      },
+      function(err) {
+        if (err) return next(err);
+        round.remove();
+        res.redirect("/golfstats");
+      }
+    );
   });
 });
 

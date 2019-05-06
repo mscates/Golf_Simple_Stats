@@ -25,7 +25,7 @@
         <div class="d-flex flex-row">
           <a
             id="edit"
-            class="btn btn-dark mr-3"
+            class="btn btn-warning mr-3"
             href="/golfstats/<%= stat._id %>/edit"
             >Edit</a
           >
@@ -33,7 +33,7 @@
             action="/golfstats/<%= stat._id %>?_method=Delete"
             method="POST"
           >
-            <button class="btn btn-dark">Delete</button>
+            <button class="btn btn-danger">Delete</button>
           </form>
         </div>
         <p class="pt-4">
@@ -45,7 +45,9 @@
   <div class="col d-flex justify-content-center">
     <div class="card w-75 text-dark bg-light mb-3">
       <div class="d-flex flex-row ml-2 mt-2">
-        <a class="btn btn-dark" href="/golfstats/<%= stat._id %>/comments/new"
+        <a
+          class="btn btn-primary"
+          href="/golfstats/<%= stat._id %>/comments/new"
           >Add Comment</a
         >
       </div>
