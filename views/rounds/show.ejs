@@ -23,6 +23,7 @@
           </h5>
         </div>
         <div class="d-flex flex-row">
+          <% if(currentUser && stat.author.id.equals(currentUser._id)){ %>
           <a
             id="edit"
             class="btn btn-warning mr-3"
@@ -35,6 +36,7 @@
           >
             <button class="btn btn-danger">Delete</button>
           </form>
+          <% } %>
         </div>
         <p class="pt-4">
           Created by: <%= stat.author.username %>

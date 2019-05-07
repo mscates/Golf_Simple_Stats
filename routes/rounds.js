@@ -76,18 +76,14 @@ router.get("/:id", function(req, res) {
 });
 
 // EDIT ROUTE
-router.get("/:id/edit", isLoggedIn, function(req, res) {
+router.get("/:id/edit", checkRoundOwnership, function(req, res) {
   Round.findById(req.params.id, function(err, foundRound) {
-    if (err) {
-      res.redirect("/golfstats");
-    } else {
-      res.render("rounds/edit", { stat: foundRound });
-    }
+    res.render("rounds/edit", { stat: foundRound });
   });
 });
 
 // UPDATE ROUTE
-router.put("/:id", function(req, res) {
+router.put("/:id", checkRoundOwnership, function(req, res) {
   Round.findByIdAndUpdate(req.params.id, req.body.stats, function(
     err,
     updatedRound
@@ -101,7 +97,7 @@ router.put("/:id", function(req, res) {
 });
 
 // DELETE ROUTE
-router.delete("/:id", isLoggedIn, function(req, res, next) {
+router.delete("/:id", checkRoundOwnership, function(req, res, next) {
   Round.findById(req.params.id, function(err, round) {
     Comment.remove(
       {
@@ -123,6 +119,24 @@ function isLoggedIn(req, res, next) {
     return next();
   }
   res.redirect("/login");
+}
+
+function checkRoundOwnership(req, res, next) {
+  if (req.isAuthenticated()) {
+    Round.findById(req.params.id, function(err, foundRound) {
+      if (err) {
+        res.redirect("back");
+      } else {
+        if (foundRound.author.id.equals(req.user._id)) {
+          next();
+        } else {
+          res.redirect("back");
+        }
+      }
+    });
+  } else {
+    res.redirect("back");
+  }
 }
 
 module.exports = router;
