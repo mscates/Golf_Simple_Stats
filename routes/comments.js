@@ -64,6 +64,17 @@ router.put("/:comment_id", function(req, res) {
   });
 });
 
+// comment delete route
+router.delete("/:comment_id", function(req, res) {
+  Comment.findOneAndDelete(req.params.comment_id, function(err) {
+    if (err) {
+      res.redirect("back");
+    } else {
+      res.redirect("/golfstats/" + req.params.id);
+    }
+  });
+});
+
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
