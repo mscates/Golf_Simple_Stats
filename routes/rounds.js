@@ -3,6 +3,7 @@ var router = express.Router();
 var Round = require("../models/round");
 var moment = require("moment");
 var Comment = require("../models/comment");
+var middleware = require("../middleware");
 
 //INDEX ROUTE
 router.get("/", function(req, res) {
@@ -19,12 +20,12 @@ router.get("/", function(req, res) {
 });
 
 // NEW ROUTE
-router.get("/new", isLoggedIn, function(req, res) {
+router.get("/new", middleware.isLoggedIn, function(req, res) {
   res.render("rounds/new");
 });
 
 // CREATE ROUTE
-router.post("/", isLoggedIn, function(req, res) {
+router.post("/", middleware.isLoggedIn, function(req, res) {
   var score = req.body.score;
   var fairways = req.body.fairways;
   var greens = req.body.greens;
@@ -76,14 +77,14 @@ router.get("/:id", function(req, res) {
 });
 
 // EDIT ROUTE
-router.get("/:id/edit", checkRoundOwnership, function(req, res) {
+router.get("/:id/edit", middleware.checkRoundOwnership, function(req, res) {
   Round.findById(req.params.id, function(err, foundRound) {
     res.render("rounds/edit", { stat: foundRound });
   });
 });
 
 // UPDATE ROUTE
-router.put("/:id", checkRoundOwnership, function(req, res) {
+router.put("/:id", middleware.checkRoundOwnership, function(req, res) {
   Round.findByIdAndUpdate(req.params.id, req.body.stats, function(
     err,
     updatedRound
@@ -97,7 +98,7 @@ router.put("/:id", checkRoundOwnership, function(req, res) {
 });
 
 // DELETE ROUTE
-router.delete("/:id", checkRoundOwnership, function(req, res, next) {
+router.delete("/:id", middleware.checkRoundOwnership, function(req, res, next) {
   Round.findById(req.params.id, function(err, round) {
     Comment.remove(
       {
@@ -113,30 +114,5 @@ router.delete("/:id", checkRoundOwnership, function(req, res, next) {
     );
   });
 });
-
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
-
-function checkRoundOwnership(req, res, next) {
-  if (req.isAuthenticated()) {
-    Round.findById(req.params.id, function(err, foundRound) {
-      if (err) {
-        res.redirect("back");
-      } else {
-        if (foundRound.author.id.equals(req.user._id)) {
-          next();
-        } else {
-          res.redirect("back");
-        }
-      }
-    });
-  } else {
-    res.redirect("back");
-  }
-}
 
 module.exports = router;
