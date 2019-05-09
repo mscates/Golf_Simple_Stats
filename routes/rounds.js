@@ -5,6 +5,8 @@ var moment = require("moment");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 
+// Round.counterReset("_id", function(err) {});
+
 //INDEX ROUTE
 router.get("/", function(req, res) {
   Round.find({}, function(err, stats) {

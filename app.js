@@ -4,6 +4,7 @@ var bodyParser = require("body-parser"),
   express = require("express"),
   app = express(),
   passport = require("passport"),
+  flash = require("connect-flash"),
   LocalStrategy = require("passport-local"),
   User = require("./models/user"),
   seedDB = require("./seeds");
@@ -11,8 +12,6 @@ var bodyParser = require("body-parser"),
 var commentRoutes = require("./routes/comments"),
   roundRoutes = require("./routes/rounds"),
   authRoutes = require("./routes/auth");
-
-// Round.counterReset("_id", function(err) {});
 
 // seedDB();
 // APP CONFIGURATION
@@ -29,6 +28,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 // setup method override for put requests
 app.use(methodOverride("_method"));
+app.use(flash());
 
 // PASSPORT CONFIGURATION
 app.use(
@@ -46,6 +46,8 @@ passport.deserializeUser(User.deserializeUser());
 // use currentUser in all routes
 app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
   next();
 });
 
