@@ -69,8 +69,9 @@ router.get("/:id", function(req, res) {
   Round.findById(req.params.id)
     .populate("comments")
     .exec(function(err, foundRound) {
-      if (err) {
-        console.log(err);
+      if (err || !foundRound) {
+        req.flash("error", "Round not found");
+        res.redirect("back");
       } else {
         console.log(foundRound);
         res.render("rounds/show", { stat: foundRound, moment: moment });

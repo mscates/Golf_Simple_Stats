@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Round = require("./models/round");
 var Comment = require("./models/comment");
 
-var data = [
+var seeds = [
   {
     score: 75,
     fairways: 10,
@@ -23,46 +23,23 @@ var data = [
   }
 ];
 
-function seedDB() {
-  //Remove all campgrounds
-  Round.deleteMany({}, function(err) {
-    if (err) {
-      console.log(err);
-    }
-    console.log("removed rounds!");
-    Comment.deleteMany({}, function(err) {
-      if (err) {
-        console.log(err);
-      }
-      console.log("removed rounds!");
-      //add a few campgrounds
-      data.forEach(function(seed) {
-        Round.create(seed, function(err, round) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log("added a round");
-            //create a comment
-            Comment.create(
-              {
-                text: "A great round today for you",
-                author: "Timmmy"
-              },
-              function(err, comment) {
-                if (err) {
-                  console.log(err);
-                } else {
-                  round.comments.push(comment);
-                  round.save();
-                  console.log("Created new round");
-                }
-              }
-            );
-          }
-        });
-      });
+async function seedDB() {
+  await Round.remove({});
+  console.log("rounds removed");
+  await Comment.remove({});
+  console.log("comments removed");
+
+  for (const seed of seeds) {
+    let round = await Round.create(seed);
+    console.log("rounds created");
+    let comment = await Comment.create({
+      text: "A great round today for you",
+      author: "Timmmy"
     });
-  });
+    console.log("comment created");
+    round.comment.push(comment);
+    round.save();
+  }
 }
 
 module.exports = seedDB;

@@ -44,15 +44,21 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(
   req,
   res
 ) {
-  Comment.findById(req.params.comment_id, function(err, foundComment) {
-    if (err) {
-      res.redirect("back");
-    } else {
-      res.render("comments/edit", {
-        round_id: req.params.id,
-        comment: foundComment
-      });
+  Round.findById(req.params.id, function(err, foundRound) {
+    if (err || !foundRound) {
+      req.flash("error", "Cannot find that round");
+      return res.redirect("back");
     }
+    Comment.findById(req.params.comment_id, function(err, foundComment) {
+      if (err) {
+        res.redirect("back");
+      } else {
+        res.render("comments/edit", {
+          round_id: req.params.id,
+          comment: foundComment
+        });
+      }
+    });
   });
 });
 // comment update route
