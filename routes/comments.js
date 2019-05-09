@@ -31,6 +31,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
           comment.save();
           round.comments.push(comment);
           round.save();
+          req.flash("success", "Successfully added comment");
           res.redirect("/golfstats/" + round._id);
         }
       });
@@ -77,6 +78,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(
     if (err) {
       res.redirect("back");
     } else {
+      req.flash("success", "Comment deleted");
       res.redirect("/golfstats/" + req.params.id);
     }
   });
