@@ -61,7 +61,7 @@ app.use("/golfstats", roundRoutes);
 app.use("/golfstats/:id/comments", commentRoutes);
 
 var port = 1236 || process.env.PORT;
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log("Server Started!");
 });
 
