@@ -54,14 +54,34 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 });
 
 // DASHBOARD ROUTE
-router.get("/dashboard", function(req, res) {
-  Round.find({}, function(err, stats) {
-    if (err) {
-      console.log("Error");
-    } else {
-      res.render("rounds/dashboard", { stats: stats });
-    }
-  });
+router.get("/dashboard", async function(req, res) {
+  try {
+    const userRounds = {};
+    const round = await Round.find({});
+    const rounds = round.filter(item => item.author.id.equals(req.user._id));
+    userRounds.numRounds = rounds.length;
+    for(i = 0; i < rounds.length; i++) {
+      for(let propt in rounds[i].toObject()) {
+        if(propt === 'score' || propt === 'fairways' || propt === 'greens' || propt === 'putts') {
+          userRounds[propt] = rounds.reduce((total, currentObj) => {return total + currentObj[propt] / rounds.length; }, 0);
+        }
+      }
+    };
+
+    // find all the keys
+    // if key === score || fairways || greens || putts then do average
+    // userRounds.score = rounds.reduce((total, currentObj) => {return total + currentObj.score / rounds.length; }, 0);
+    // userRounds.fairways = rounds.reduce((total, currentObj) => {return total + currentObj.fairways / rounds.length; }, 0);
+    // userRounds.greens = rounds.reduce((total, currentObj) => {return total + currentObj.greens / rounds.length; }, 0);
+    // userRounds.putts = rounds.reduce((total, currentObj) => {return total + currentObj.putts / rounds.length; }, 0);
+
+    res.locals.userAvg = userRounds;
+
+  } catch (err) {
+    console.log(err);
+  }
+
+  res.render("rounds/dashboard");
 });
 
 // SHOW ROUTE
