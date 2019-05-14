@@ -15,7 +15,12 @@ var commentRoutes = require("./routes/comments"),
 
 // seedDB();
 // APP CONFIGURATION
-mongoose.connect("mongodb+srv://mcates:DKGCkr6y3j5p6xz@cluster0-aki0i.mongodb.net/test?retryWrites=true", {
+// mongoose.connect("mongodb://localhost:27017/golf_stats_app", {
+//   useNewUrlParser: true,
+//   useCreateIndex: true
+// });
+
+mongoose.connect("mongodb+srv://mcates:DKGCkr6y3j5p6xz@cluster0-aki0i.mongodb.net/golf_stats_app?retryWrites=true", {
   useNewUrlParser: true,
   useCreateIndex: true
 });
@@ -56,7 +61,7 @@ app.use("/golfstats", roundRoutes);
 app.use("/golfstats/:id/comments", commentRoutes);
 
 var port = 1236 || process.env.PORT;
-app.listen(port = () => {
+app.listen(port, () => {
   console.log("Server Started!");
 });
 
