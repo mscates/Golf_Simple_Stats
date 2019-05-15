@@ -22,10 +22,10 @@ mongoose.connect(process.env.DATABASEURL, {
 
 
 
-mongoose.connect("mongodb+srv://mcates:DKGCkr6y3j5p6xz@cluster0-aki0i.mongodb.net/golf_stats_app?retryWrites=true", {
-  useNewUrlParser: true,
-  useCreateIndex: true
-});
+// mongoose.connect("mongodb+srv://mcates:DKGCkr6y3j5p6xz@cluster0-aki0i.mongodb.net/golf_stats_app?retryWrites=true", {
+//   useNewUrlParser: true,
+//   useCreateIndex: true
+// });
 
 // allows for view files to drop the .ejs extention when rendering
 app.set("view engine", "ejs");
