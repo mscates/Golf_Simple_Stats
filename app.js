@@ -15,10 +15,12 @@ var commentRoutes = require("./routes/comments"),
 
 // seedDB();
 // APP CONFIGURATION
-// mongoose.connect("mongodb://localhost:27017/golf_stats_app", {
-//   useNewUrlParser: true,
-//   useCreateIndex: true
-// });
+mongoose.connect(process.env.DATABASEURL, {
+  useNewUrlParser: true,
+  useCreateIndex: true
+});
+
+
 
 mongoose.connect("mongodb+srv://mcates:DKGCkr6y3j5p6xz@cluster0-aki0i.mongodb.net/golf_stats_app?retryWrites=true", {
   useNewUrlParser: true,
