@@ -47,7 +47,6 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
     if (err) {
       res.status(400).send("unable to save to database");
     } else {
-      console.log(newCreatedRound);
       res.redirect("/golfstats");
     }
   });
