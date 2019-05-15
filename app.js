@@ -15,7 +15,8 @@ var commentRoutes = require("./routes/comments"),
 
 // seedDB();
 // APP CONFIGURATION
-mongoose.connect(process.env.DATABASEURL, {
+let url = process.env.DATABASEURL || "mongodb://localhost:27017/golf_stats_app"
+mongoose.connect(url, {
   useNewUrlParser: true,
   useCreateIndex: true
 });
@@ -31,9 +32,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(flash());
 
-// markcatescoding@gmail.com - M9u%t3Es1 - gmail
-// mongodb - markcatescoding@gmail.com - Bc0206Bc!
-// mongodb user - mcates - uuhq2NxCvifI6TBE
 // PASSPORT CONFIGURATION
 app.use(
   require("express-session")({

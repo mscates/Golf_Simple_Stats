@@ -67,13 +67,6 @@ router.get("/dashboard", async function(req, res) {
       }
     };
 
-    // find all the keys
-    // if key === score || fairways || greens || putts then do average
-    // userRounds.score = rounds.reduce((total, currentObj) => {return total + currentObj.score / rounds.length; }, 0);
-    // userRounds.fairways = rounds.reduce((total, currentObj) => {return total + currentObj.fairways / rounds.length; }, 0);
-    // userRounds.greens = rounds.reduce((total, currentObj) => {return total + currentObj.greens / rounds.length; }, 0);
-    // userRounds.putts = rounds.reduce((total, currentObj) => {return total + currentObj.putts / rounds.length; }, 0);
-
     res.locals.userAvg = userRounds;
 
   } catch (err) {
