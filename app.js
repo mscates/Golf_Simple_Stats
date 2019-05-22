@@ -1,4 +1,4 @@
-var bodyParser = require("body-parser"),
+let bodyParser = require("body-parser"),
   methodOverride = require("method-override"),
   mongoose = require("mongoose"),
   express = require("express"),
@@ -9,7 +9,7 @@ var bodyParser = require("body-parser"),
   User = require("./models/user"),
   seedDB = require("./seeds");
 
-var commentRoutes = require("./routes/comments"),
+let commentRoutes = require("./routes/comments"),
   roundRoutes = require("./routes/rounds"),
   authRoutes = require("./routes/auth");
 

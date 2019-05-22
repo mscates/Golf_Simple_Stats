@@ -54,19 +54,16 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 
 // DASHBOARD ROUTE
 router.get("/dashboard", async function(req, res) {
-  try {
-    const userRounds = {};
-    const round = await Round.find({});
-    const rounds = round.filter(item => item.author.id.equals(req.user._id));
-    userRounds.numRounds = rounds.length;
-    for(i = 0; i < rounds.length; i++) {
-      for(let propt in rounds[i].toObject()) {
-        if(propt === 'score' || propt === 'fairways' || propt === 'greens' || propt === 'putts') {
-          userRounds[propt] = rounds.reduce((total, currentObj) => {return total + currentObj[propt] / rounds.length; }, 0);
-        }
-      }
-    };
 
+  try {
+    let userRounds = {};
+    const rounds = await Round.find({'author.id': req.user._id});
+    userRounds.numRounds = rounds.length;
+    ['score', 'fairways', 'greens', 'putts'].forEach(propt => {
+      userRounds[propt] = rounds.reduce( (total, currentObj) => {
+        return (total[propt] + currentObj[propt]) / rounds.length;
+      })
+    });
     res.locals.userAvg = userRounds;
 
   } catch (err) {
