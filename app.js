@@ -25,7 +25,7 @@ mongoose.connect(url, {
 // allows for view files to drop the .ejs extention when rendering
 app.set("view engine", "ejs");
 // allows for use of a custom style sheet
-app.use(express.static("public"));
+app.use(express.static("public/"));
 // allows for form data to be available in req.body
 app.use(bodyParser.urlencoded({ extended: true }));
 // setup method override for put requests

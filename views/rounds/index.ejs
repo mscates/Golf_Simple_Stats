@@ -2,20 +2,21 @@
 
 <div class="container">
   <h1 class="text-center mb-4">Golf Rounds</h1>
-  <div class="row justify-content-around">
+  <!-- <div class="row justify-content-around"> -->
+  <div class="rounds"></div>
     <% stats.forEach(function(stat) { %>
-    <div class="card-deck col-md-3">
-      <div class="card text-black bg-light mb-3">
-        <div class="card-header">Round: <%= stat._id %></div>
-        <div class="card-body">
-          <h5 class="card-title">Score: <%= stat.score %></h5>
-          <p class="card-text">
-            Completed: <%= moment(stat.created).format('L') %>
-          </p>
-          <a class="btn btn-dark" href="/golfstats/<%= stat._id %>"
-            >More Stats</a
-          >
-        </div>
+    <!-- <div class="card-deck col-sm-6 col-md-4"> -->
+    <div class="round-card">
+      <!-- <div class="card text-black bg-light mb-3" style="width: 18rem;"> -->
+      <div class="card-header">Round: <%= stat._id %></div>
+      <div class="card-body">
+        <h5 class="card-title">Score: <%= stat.score %></h5>
+        <p class="card-text">
+          Completed: <%= moment(stat.created).format('L') %>
+        </p>
+        <a class="btn btn-info" href="/golfstats/<%= stat._id %>"
+          >More Stats</a
+        >
       </div>
     </div>
     <% }) %>
