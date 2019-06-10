@@ -6,10 +6,10 @@
       <h2>After <%= userAvg.numRounds %> rounds </h2>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Scoring Average: <span class="float-right"><%= userAvg.score %></span></li>
-    <li class="list-group-item">Fairway Average: <span class="float-right"><%= userAvg.fairways %></span></li>
-    <li class="list-group-item">Green Average: <span class="float-right"><%= userAvg.greens %></span></li>
-    <li class="list-group-item">Putt Average: <span class="float-right"><%= userAvg.putts %></span></li>
+    <li class="list-group-item">Scoring Average: <span class="float-right"><%= Math.round(userAvg.score) %></span></li>
+    <li class="list-group-item">Fairway Average: <span class="float-right"><%= Math.round(userAvg.fairways) %></span></li>
+    <li class="list-group-item">Green Average: <span class="float-right"><%= Math.round(userAvg.greens) %></span></li>
+    <li class="list-group-item">Putt Average: <span class="float-right"><%= Math.round(userAvg.putts) %></span></li>
   </ul>
 </div>
 

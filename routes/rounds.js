@@ -60,16 +60,15 @@ router.get("/dashboard", async function(req, res) {
     const rounds = await Round.find({'author.id': req.user._id});
     userRounds.numRounds = rounds.length;
     ['score', 'fairways', 'greens', 'putts'].forEach(propt => {
-      userRounds[propt] = rounds.reduce( (total, currentObj) => {
-        return (total[propt] + currentObj[propt]) / rounds.length;
-      })
+      userRounds[propt] = rounds.reduce((total,     currentItem) => {
+        return total + currentItem[propt];
+      }, 0) / rounds.length;
     });
     res.locals.userAvg = userRounds;
 
   } catch (err) {
     console.log(err);
   }
-
   res.render("rounds/dashboard");
 });
 
@@ -82,7 +81,6 @@ router.get("/:id", function(req, res) {
         req.flash("error", "Round not found");
         res.redirect("back");
       } else {
-        console.log(foundRound);
         res.render("rounds/show", { stat: foundRound, moment: moment });
       }
     });
