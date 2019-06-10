@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 
 <div class="row justify-content-center mt-4">
-  <div class="col-md-3">
+  <div class="col-md-10">
     <div class="card card-outline-secondary">
       <div class="card-header">
         <div class="mb-0">Edit Round:
@@ -11,21 +11,21 @@
         <form action="/golfstats/<%= stat._id %>?_method=PUT" method="POST">
           <div class="form-group">
             <label for="score">Score</label>
-            <input type="text" name="stats[score]" class="form-control" id="score" value="<%= stat.score %>"/>
+            <input type="text" name="stats[score]" class="form-control form-height" id="score" value="<%= stat.score %>"/>
           </div>
           <div class="form-group">
             <label for="fairways">Fairways</label>
-            <input type="text" name="stats[fairways]" class="form-control" id="fairways" value="<%= stat.fairways %>"/>
+            <input type="text" name="stats[fairways]" class="form-control form-height" id="fairways" value="<%= stat.fairways %>"/>
           </div>
           <div class="form-group">
             <label for="greens">Greens</label>
-            <input type="text" name="stats[greens]" class="form-control" id="greens" value="<%= stat.greens %>"/>
+            <input type="text" name="stats[greens]" class="form-control form-height" id="greens" value="<%= stat.greens %>"/>
           </div>
           <div class="form-group">
             <label for="putts">Putts</label>
-            <input type="text" name="stats[putts]" class="form-control" id="putts" value="<%= stat.putts %>"/>
+            <input type="text" name="stats[putts]" class="form-control form-height" id="putts" value="<%= stat.putts %>"/>
           </div>
-          <input type="submit">
+          <input class="btn btn-primary btn-lg" type="submit">
         </form>
       </div>
     </div>

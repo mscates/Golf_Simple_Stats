@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 
 <div class="row justify-content-center mt-4">
-  <div class="col-md-3">
+  <div class="col-md-10">
     <div class="card card-outline-secondary">
       <div class="card-header">
         <div class="mb-0">New Round Stats</div>
@@ -10,21 +10,21 @@
         <form action="/golfstats" method="POST">
           <div class="form-group">
             <label for="score">Score</label>
-            <input type="text" name="score" class="form-control" id="score" placeholder="0" />
+            <input type="text" name="score" class="form-control form-height" id="score" placeholder="0" />
           </div>
           <div class="form-group">
             <label for="fairways">Fairways</label>
-            <input type="text" name="fairways" class="form-control" id="fairways" placeholder="0" />
+            <input type="text" name="fairways" class="form-control form-height" id="fairways" placeholder="0" />
           </div>
           <div class="form-group">
             <label for="greens">Greens</label>
-            <input type="text" name="greens" class="form-control" id="greens" placeholder="0" />
+            <input type="text" name="greens" class="form-control form-height" id="greens" placeholder="0" />
           </div>
           <div class="form-group">
             <label for="putts">Putts</label>
-            <input type="text" name="putts" class="form-control" id="putts" placeholder="0" />
+            <input type="text" name="putts" class="form-control form-height" id="putts" placeholder="0" />
           </div>
-          <input type="submit">
+          <input class="btn btn-primary btn-lg" type="submit">
         </form>
       </div>
     </div>

@@ -48,16 +48,37 @@
 
 .rounds-total {
   width: 600px;
-  height: 600px;
+  height: 350px;
   margin: 50px auto;
   background-color: #f0f0f0;
   padding: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,.5);
   overflow: hidden;
 }
 
-.navbar {
-  height: 100px;
+.rounds-total li {
+  font-size: 25px;
+}
+
+.form-group label {
+  font-size: 40px;
+}
+
+.form-group input {
+  font-size: 35px;
+}
+
+.form-height {
+  height: 75px;
+}
+
+@media (min-width: 320px) {
+  .navbar-brand {
+    font-size: 50px !important;
+  }
+
+  .nav-item {
+    font-size: 40px !important;
+  }
 }
 
 
